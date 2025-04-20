@@ -65,6 +65,18 @@
 <li><p>NULL if invalid plot_type specified</p></li>
 </ul></div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RightSZ/xvm" class="external-link">xvm</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xpm_file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/gibbs.xpm"</span>, package <span class="op">=</span> <span class="st">"xvm"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xpm_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xpm.html">read_xpm</a></span><span class="op">(</span><span class="va">xpm_file_path</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Dimensions parsed: width = 32, height = 32, colors = 50</span>
+<span class="r-in"><span><span class="fu">plot_xpm_facet</span><span class="op">(</span><span class="va">xpm_data</span><span class="op">)</span> <span class="co"># plot pseudo-3D from xpm file</span></span></span>
+<span class="r-plt img"><img src="plot_xpm_facet-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

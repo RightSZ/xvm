@@ -63,6 +63,18 @@
     <p>Named list containing xvg data, using filenames (without extension) as keys</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RightSZ/xvm" class="external-link">xvm</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Retrieve the path to the example file included in the package:</span></span></span>
+<span class="r-in"><span><span class="va">rmsd_file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/rmsd.xvg"</span>, package <span class="op">=</span> <span class="st">"xvm"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rmsd_data</span> <span class="op">&lt;-</span> <span class="fu">read_xvg</span><span class="op">(</span><span class="va">rmsd_file_path</span><span class="op">)</span> <span class="co"># read the xvg file using read_xvg() function</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">rmsd_data</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rmsd.xvg"</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

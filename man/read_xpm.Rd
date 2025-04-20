@@ -34,3 +34,12 @@ The function performs the following operations:
 \item Returns aggregated results in a named list
 }
 }
+\examples{
+\donttest{
+library(xvm)
+# Retrieve the path to the example file included in the package
+xpm_file_path <- system.file("extdata/gibbs.xpm", package = "xvm")
+xpm_data <- read_xpm(xpm_file_path) # read the xpm file using read_xpm() function
+names(xpm_data)
+}
+}

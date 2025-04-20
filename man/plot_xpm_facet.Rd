@@ -22,3 +22,11 @@ a ggplot2 object with:
 \description{
 creates dual-panel visualizations of xpm data with scatter or area plots.
 }
+\examples{
+\donttest{
+library(xvm)
+xpm_file_path <- system.file("extdata/gibbs.xpm", package = "xvm")
+xpm_data <- read_xpm(xpm_file_path)
+plot_xpm_facet(xpm_data) # plot pseudo-3D from xpm file
+}
+}

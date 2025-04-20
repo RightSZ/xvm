@@ -40,7 +40,7 @@ parse_xpm <- function(xpm_content) {
   height <- dims[2]
   num_colors <- dims[3]
 
-  cat("Dimensions parsed: width =", width, "height =", height, "colors =", num_colors, "\n")
+  message("Dimensions parsed: width = ", width, ", height = ", height, ", colors = ", num_colors, "\n")
 
   # Extract color mappings
   color_map <- list()
@@ -195,6 +195,14 @@ parse_xpm <- function(xpm_content) {
 #'   \item Reads valid files and parses them using [parse_xpm()]
 #'   \item Returns aggregated results in a named list
 #' }
+#' @examples
+#' \donttest{
+#' library(xvm)
+#' # Retrieve the path to the example file included in the package
+#' xpm_file_path <- system.file("extdata/gibbs.xpm", package = "xvm")
+#' xpm_data <- read_xpm(xpm_file_path) # read the xpm file using read_xpm() function
+#' names(xpm_data)
+#' }
 #' @export
 read_xpm <- function(xpm_files) {
   # Validate input type
@@ -331,7 +339,14 @@ parse_xvg <- function(lines, skip_comments = TRUE) {
 #' @param skip_comments logical indicating whether to skip comment lines (default: TRUE)
 #'
 #' @return Named list containing xvg data, using filenames (without extension) as keys
-#'
+#' @examples
+#' \donttest{
+#' library(xvm)
+#' # Retrieve the path to the example file included in the package:
+#' rmsd_file_path <- system.file("extdata/rmsd.xvg", package = "xvm")
+#' rmsd_data <- read_xvg(rmsd_file_path) # read the xvg file using read_xvg() function
+#' names(rmsd_data)
+#' }
 #' @export
 read_xvg <- function(xvg_files, skip_comments = TRUE) {
   if (!is.character(xvg_files)) {

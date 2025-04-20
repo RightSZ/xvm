@@ -18,3 +18,11 @@ a ggplot2 object
 \description{
 plot xpm data using ggplot2
 }
+\examples{
+\donttest{
+library(xvm)
+xpm_file_path <- system.file("extdata/gibbs.xpm", package = "xvm")
+xpm_data <- read_xpm(xpm_file_path)
+plot_xpm(xpm_data) # plot the xpm data using plot_xpm() function
+}
+}

@@ -17,3 +17,12 @@ Named list containing xvg data, using filenames (without extension) as keys
 \description{
 read one or more GROMACS-generated xvg files
 }
+\examples{
+\donttest{
+library(xvm)
+# Retrieve the path to the example file included in the package:
+rmsd_file_path <- system.file("extdata/rmsd.xvg", package = "xvm")
+rmsd_data <- read_xvg(rmsd_file_path) # read the xvg file using read_xvg() function
+names(rmsd_data)
+}
+}

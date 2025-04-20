@@ -21,3 +21,11 @@ a ggplot2 object
 \description{
 plot xvg data using ggplot2
 }
+\examples{
+\donttest{
+library(xvm)
+rmsd_file_path <- system.file("extdata/rmsd.xvg", package = "xvm")
+rmsd_data <- read_xvg(rmsd_file_path)
+plot_xvg(rmsd_data) # plot the xvg data using plot_xvg() function
+}
+}

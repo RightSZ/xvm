@@ -19,3 +19,9 @@ a plotly object
 \description{
 creates 3d visualization of xpm data with scatter plot.
 }
+\examples{
+library(xvm)
+xpm_file_path <- system.file("extdata/gibbs.xpm", package = "xvm")
+xpm_data <- read_xpm(xpm_file_path)
+plot_xpm_3d(xpm_data) # plot 3D scatter plot from xpm file
+}

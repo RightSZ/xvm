@@ -9,6 +9,13 @@
 #' @return a ggplot2 object
 #' @import ggplot2
 #' @importFrom stats setNames
+#' @examples
+#' \donttest{
+#' library(xvm)
+#' rmsd_file_path <- system.file("extdata/rmsd.xvg", package = "xvm")
+#' rmsd_data <- read_xvg(rmsd_file_path)
+#' plot_xvg(rmsd_data) # plot the xvg data using plot_xvg() function
+#' }
 #' @export
 plot_xvg <- function(xvg_data, title = NULL, subtitle = NULL,...) {
   if (is.list(xvg_data)) {
@@ -120,6 +127,13 @@ plot_xvg <- function(xvg_data, title = NULL, subtitle = NULL,...) {
 #'        or discrete tiles (FALSE). Default is FALSE.
 #' @return a ggplot2 object
 #' @import ggplot2
+#' @examples
+#' \donttest{
+#' library(xvm)
+#' xpm_file_path <- system.file("extdata/gibbs.xpm", package = "xvm")
+#' xpm_data <- read_xpm(xpm_file_path)
+#' plot_xpm(xpm_data) # plot the xpm data using plot_xpm() function
+#' }
 #' @export
 plot_xpm<-function(xpm_data,interpolate = FALSE){
   if (is.list(xpm_data)) {
@@ -186,6 +200,13 @@ plot_xpm<-function(xpm_data,interpolate = FALSE){
 #' @import ggplot2
 #' @importFrom ggnewscale new_scale_color
 #' @importFrom ggnewscale new_scale_fill
+#' @examples
+#' \donttest{
+#' library(xvm)
+#' xpm_file_path <- system.file("extdata/gibbs.xpm", package = "xvm")
+#' xpm_data <- read_xpm(xpm_file_path)
+#' plot_xpm_facet(xpm_data) # plot pseudo-3D from xpm file
+#' }
 #' @export
 plot_xpm_facet<-function(xpm_data,plot_type = "scatter"){
   if (is.list(xpm_data)) {
@@ -292,6 +313,11 @@ plot_xpm_facet<-function(xpm_data,plot_type = "scatter"){
 #' @param point_size the size of the points in the scatter plot; default is 2
 #' @return a plotly object
 #' @importFrom plotly plot_ly layout %>%
+#' @examples
+#' library(xvm)
+#' xpm_file_path <- system.file("extdata/gibbs.xpm", package = "xvm")
+#' xpm_data <- read_xpm(xpm_file_path)
+#' plot_xpm_3d(xpm_data) # plot 3D scatter plot from xpm file
 #' @export
 plot_xpm_3d<-function(xpm_data, reversescale = FALSE, point_size = 2){
   if (is.list(xpm_data)) {
