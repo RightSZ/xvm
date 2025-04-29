@@ -6,7 +6,6 @@
 #' @param subtitle chart subtitle (default uses xvg file's subtitle)
 #' @param merge logical; if TRUE and multiple datasets provided, merge them (default: FALSE)
 #' @param use_color_scale custom color scale function (e.g., ggsci::scale_color_bmj) to override default colors
-
 #' @param ... additional parameters passed to ggplot2::geom_line
 #'
 #' @return a ggplot2 object
@@ -139,8 +138,7 @@ plot_xvg <- function(xvg_data, merge = FALSE, title = NULL, subtitle = NULL, use
   }
 
 
-  if(merge && !is.null(legend_labels) && has_legend_special) {
-
+  if(merge && !is.null(legend_labels)) {
     var_names <- unique(plot_data$variable)
     grp_names <- unique(plot_data$group)
 
@@ -160,7 +158,8 @@ plot_xvg <- function(xvg_data, merge = FALSE, title = NULL, subtitle = NULL, use
           expr_text <- paste0("paste(", orig_label, ", \" (", grp, ")\")")
           label_pairs[[as.character(var_grp)]] <- parse(text = expr_text)
         } else {
-          label_pairs[[as.character(var_grp)]] <- paste0(orig_label, " (", grp, ")")
+          expr_text <- paste0("paste('", orig_label, "', ' (", grp, ")')")
+          label_pairs[[as.character(var_grp)]] <- parse(text = expr_text)
         }
       }
     }
@@ -180,7 +179,49 @@ plot_xvg <- function(xvg_data, merge = FALSE, title = NULL, subtitle = NULL, use
     }
   } else if(merge) {
     if(!is.null(use_color_scale)) {
-      p <- p + use_color_scale(name = "Legend")
+      var_names <- unique(plot_data$variable)
+      grp_names <- unique(plot_data$group)
+
+      all_combinations <- expand.grid(variable = var_names, group = grp_names, stringsAsFactors = FALSE)
+      all_combinations$var_group <- interaction(all_combinations$variable, all_combinations$group)
+
+      label_pairs <- list()
+      for(i in 1:nrow(all_combinations)) {
+        var <- all_combinations$variable[i]
+        grp <- all_combinations$group[i]
+        var_grp <- all_combinations$var_group[i]
+
+        expr_text <- paste0("paste('", var, "', ' (", grp, ")')")
+        label_pairs[[as.character(var_grp)]] <- parse(text = expr_text)
+      }
+
+      p <- p + use_color_scale(
+        name = "Legend",
+        breaks = names(label_pairs),
+        labels = unlist(label_pairs)
+      )
+    } else {
+      var_names <- unique(plot_data$variable)
+      grp_names <- unique(plot_data$group)
+
+      all_combinations <- expand.grid(variable = var_names, group = grp_names, stringsAsFactors = FALSE)
+      all_combinations$var_group <- interaction(all_combinations$variable, all_combinations$group)
+
+      label_pairs <- list()
+      for(i in 1:nrow(all_combinations)) {
+        var <- all_combinations$variable[i]
+        grp <- all_combinations$group[i]
+        var_grp <- all_combinations$var_group[i]
+
+        expr_text <- paste0("paste('", var, "', ' (", grp, ")')")
+        label_pairs[[as.character(var_grp)]] <- parse(text = expr_text)
+      }
+
+      p <- p + ggplot2::scale_color_discrete(
+        name = "Legend",
+        breaks = names(label_pairs),
+        labels = unlist(label_pairs)
+      )
     }
   } else {
     if (!is.null(use_color_scale)) {
@@ -206,6 +247,7 @@ plot_xvg <- function(xvg_data, merge = FALSE, title = NULL, subtitle = NULL, use
 
   return(p)
 }
+
 
 #' @title plot xpm data
 #' @description plot xpm data using ggplot2
