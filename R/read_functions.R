@@ -373,4 +373,53 @@ read_xvg <- function(xvg_files, skip_comments = TRUE) {
   return(results)
 }
 
-
+#' @title Merge Multiple XVG Data Objects
+#' @description Combines multiple XVG data objects into a single structure, preserving metadata from the first object
+#' and adding a group identifier to track the source of each data point.
+#'
+#' @param xvg_data A list of XVG data objects, each containing 'data' and 'metadata' components
+#'
+#' @return A merged XVG data object with:
+#' \itemize{
+#'   \item data - Combined data frame with an additional 'group' column identifying the source
+#'   \item metadata - Metadata from the first object in the list
+#' }
+#' @keywords internal
+merge_xvg_data<-function(xvg_data){
+  n_col <- sapply(xvg_data,function(x){ncol(x$data)})
+  if(length(unique(n_col)) > 1) stop("Inconsistent number of columns detected in the input data.")
+  xaxis <- sapply(xvg_data,function(x){x$metadata$xaxis})
+  yaxis <- sapply(xvg_data,function(x){x$metadata$yaxis})
+  title <- lapply(xvg_data,function(x){x$metadata$title})
+  subtitle <- lapply(xvg_data,function(x){x$metadata$subtitle})
+  xaxis_formatted <- sapply(xvg_data,function(x){x$metadata$xaxis_formatted})
+  yaxis_formatted <- sapply(xvg_data,function(x){x$metadata$yaxis_formatted})
+  legends <- lapply(xvg_data,function(x){x$metadata$legends})
+  legends_formatted <- lapply(xvg_data,function(x){x$metadata$legends_formatted})
+  xaxis <- xaxis[1]
+  yaxis <- yaxis[1]
+  title <- title[1]  |> unlist()
+  subtitle <- subtitle[1]  |> unlist()
+  xaxis_formatted <- xaxis_formatted[1]
+  yaxis_formatted <- yaxis_formatted[1]
+  legends <- legends[1] |> unlist()
+  legends_formatted <- legends_formatted[1]  |> unlist()
+  col_names <- colnames(xvg_data[[1]]$data)
+  data <- lapply(names(xvg_data), function(x){
+    dat<-xvg_data[[x]]$data
+    colnames(dat) <- col_names
+    dat$group<-x
+    return(dat)
+  })
+  data <- do.call(rbind,data,)
+  return(list(data = data,
+              metadata = list(title = title,
+                              subtitle = subtitle,
+                              xaxis = xaxis,
+                              yaxis = yaxis,
+                              xaxis_formatted = xaxis_formatted,
+                              yaxis_formatted = yaxis_formatted,
+                              legends = legends,
+                              legends_formatted = legends_formatted,
+                              file_path = NULL)))
+}

@@ -4,6 +4,9 @@
 #' @param xvg_data xvg data object returned by read_xvg
 #' @param title chart title (default uses xvg file's title)
 #' @param subtitle chart subtitle (default uses xvg file's subtitle)
+#' @param merge logical; if TRUE and multiple datasets provided, merge them (default: FALSE)
+#' @param use_color_scale custom color scale function (e.g., ggsci::scale_color_bmj) to override default colors
+
 #' @param ... additional parameters passed to ggplot2::geom_line
 #'
 #' @return a ggplot2 object
@@ -17,25 +20,31 @@
 #' plot_xvg(rmsd_data) # plot the xvg data using plot_xvg() function
 #' }
 #' @export
-plot_xvg <- function(xvg_data, title = NULL, subtitle = NULL,...) {
+plot_xvg <- function(xvg_data, merge = FALSE, title = NULL, subtitle = NULL, use_color_scale = NULL,...) {
   if (is.list(xvg_data)) {
     if ("data" %in% names(xvg_data) && "metadata" %in% names(xvg_data)) {
       data <- xvg_data$data
       metadata <- xvg_data$metadata
     } else if (length(xvg_data) > 0) {
-      first_key <- names(xvg_data)[1]
-      if (!is.null(first_key) && is.list(xvg_data[[first_key]])) {
-        if ("data" %in% names(xvg_data[[first_key]]) && "metadata" %in% names(xvg_data[[first_key]])) {
-          data <- xvg_data[[first_key]]$data
-          metadata <- xvg_data[[first_key]]$metadata
-          if (length(xvg_data) > 1) {
-            warning("Multiple XVG datasets provided, using the first one: ", first_key)
+      if(merge){
+        xvg_data<-merge_xvg_data(xvg_data)
+        data <- xvg_data$data
+        metadata <- xvg_data$metadata
+      } else {
+        first_key <- names(xvg_data)[1]
+        if (!is.null(first_key) && is.list(xvg_data[[first_key]])) {
+          if ("data" %in% names(xvg_data[[first_key]]) && "metadata" %in% names(xvg_data[[first_key]])) {
+            data <- xvg_data[[first_key]]$data
+            metadata <- xvg_data[[first_key]]$metadata
+            if (length(xvg_data) > 1) {
+              warning("Multiple XVG datasets provided, using the first one: ", first_key)
+            }
+          } else {
+            stop("Invalid XVG structure: nested element missing data or metadata")
           }
         } else {
-          stop("Invalid XVG structure: nested element missing data or metadata")
+          stop("Unrecognized XVG data format")
         }
-      } else {
-        stop("Unrecognized XVG data format")
       }
     } else {
       stop("Empty XVG data list provided")
@@ -46,7 +55,11 @@ plot_xvg <- function(xvg_data, title = NULL, subtitle = NULL,...) {
 
   x_col <- colnames(data)[1]
 
-  y_cols <- colnames(data)[-1]
+  if(merge){
+    y_cols <- setdiff(colnames(data)[-1], "group")
+  } else {
+    y_cols <- colnames(data)[-1]
+  }
 
   has_legend_special <- FALSE
   legend_labels <- NULL
@@ -56,6 +69,7 @@ plot_xvg <- function(xvg_data, title = NULL, subtitle = NULL,...) {
     has_legend_special <- any(grepl("\\^|\\[", legend_labels))
     legend_mapping <- setNames(legend_labels, y_cols)
   }
+
   plot_data <- tidyr::pivot_longer(
     data,
     cols = y_cols,
@@ -74,23 +88,43 @@ plot_xvg <- function(xvg_data, title = NULL, subtitle = NULL,...) {
   x_label <- metadata$xaxis_formatted
   y_label <- metadata$yaxis_formatted
 
-
   has_x_special <- grepl("\\^|\\[", x_label)
   has_y_special <- grepl("\\^|\\[", y_label)
 
-  p <- ggplot2::ggplot(plot_data, ggplot2::aes(x = .data[[x_col]], y = .data$value, color = .data$variable)) +
-    ggplot2::geom_line(...) +
-    ggplot2::labs(
-      title = title,
-      subtitle = subtitle,
-      color = "Legend"
-    ) +
-    ggplot2::theme_bw() +
-    ggplot2::theme(
-      legend.position = "right",
-      plot.title = ggplot2::element_text(hjust = 0.5),
-      plot.subtitle = ggplot2::element_text(hjust = 0.5)
-    )
+
+  if(merge) {
+
+    plot_data$var_group <- interaction(plot_data$variable, plot_data$group)
+
+    p <- ggplot2::ggplot(plot_data, ggplot2::aes(x = .data[[x_col]], y = .data$value, color = .data$var_group)) +
+      ggplot2::geom_line(...) +
+      ggplot2::labs(
+        title = title,
+        subtitle = subtitle,
+        color = "Legend"
+      ) +
+      ggplot2::theme_bw() +
+      ggplot2::theme(
+        legend.position = "right",
+        plot.title = ggplot2::element_text(hjust = 0.5),
+        plot.subtitle = ggplot2::element_text(hjust = 0.5)
+      )
+  } else {
+
+    p <- ggplot2::ggplot(plot_data, ggplot2::aes(x = .data[[x_col]], y = .data$value, color = .data$variable)) +
+      ggplot2::geom_line(...) +
+      ggplot2::labs(
+        title = title,
+        subtitle = subtitle,
+        color = "Legend"
+      ) +
+      ggplot2::theme_bw() +
+      ggplot2::theme(
+        legend.position = "right",
+        plot.title = ggplot2::element_text(hjust = 0.5),
+        plot.subtitle = ggplot2::element_text(hjust = 0.5)
+      )
+  }
 
   if (has_x_special) {
     p <- p + ggplot2::xlab(parse(text = x_label))
@@ -104,18 +138,72 @@ plot_xvg <- function(xvg_data, title = NULL, subtitle = NULL,...) {
     p <- p + ggplot2::ylab(y_label)
   }
 
-  if (!is.null(legend_labels) && has_legend_special) {
-    parsed_labels <- sapply(legend_labels, function(l) parse(text = l))
-    p <- p + ggplot2::scale_color_discrete(
-      name = "Legend",
-      labels = parsed_labels
-    )
-  } else if (!is.null(legend_labels)) {
-    p <- p + ggplot2::scale_color_discrete(
-      name = "Legend",
-      labels = function(x) legend_labels[match(x, names(legend_mapping))]
-    )
+
+  if(merge && !is.null(legend_labels) && has_legend_special) {
+
+    var_names <- unique(plot_data$variable)
+    grp_names <- unique(plot_data$group)
+
+    all_combinations <- expand.grid(variable = var_names, group = grp_names, stringsAsFactors = FALSE)
+    all_combinations$var_group <- interaction(all_combinations$variable, all_combinations$group)
+
+    label_pairs <- list()
+    for(i in 1:nrow(all_combinations)) {
+      var <- all_combinations$variable[i]
+      grp <- all_combinations$group[i]
+      var_grp <- all_combinations$var_group[i]
+
+      if(var %in% names(legend_mapping)) {
+        orig_label <- legend_mapping[[var]]
+
+        if(grepl("\\^|\\[", orig_label)) {
+          expr_text <- paste0("paste(", orig_label, ", \" (", grp, ")\")")
+          label_pairs[[as.character(var_grp)]] <- parse(text = expr_text)
+        } else {
+          label_pairs[[as.character(var_grp)]] <- paste0(orig_label, " (", grp, ")")
+        }
+      }
+    }
+
+    if(!is.null(use_color_scale)) {
+      p <- p + use_color_scale(
+        name = "Legend",
+        breaks = names(label_pairs),
+        labels = unlist(label_pairs)
+      )
+    } else {
+      p <- p + ggplot2::scale_color_discrete(
+        name = "Legend",
+        breaks = names(label_pairs),
+        labels = unlist(label_pairs)
+      )
+    }
+  } else if(merge) {
+    if(!is.null(use_color_scale)) {
+      p <- p + use_color_scale(name = "Legend")
+    }
+  } else {
+    if (!is.null(use_color_scale)) {
+      if (!is.null(legend_labels) && has_legend_special) {
+        parsed_labels <- sapply(legend_labels, function(l) parse(text = l))
+        p <- p + use_color_scale(name = "Legend", labels = parsed_labels)
+      } else if (!is.null(legend_labels)) {
+        p <- p + use_color_scale(name = "Legend",
+                                 labels = function(x) legend_labels[match(x, names(legend_mapping))])
+      } else {
+        p <- p + use_color_scale(name = "Legend")
+      }
+    } else {
+      if (!is.null(legend_labels) && has_legend_special) {
+        parsed_labels <- sapply(legend_labels, function(l) parse(text = l))
+        p <- p + ggplot2::scale_color_discrete(name = "Legend", labels = parsed_labels)
+      } else if (!is.null(legend_labels)) {
+        p <- p + ggplot2::scale_color_discrete(name = "Legend",
+                                               labels = function(x) legend_labels[match(x, names(legend_mapping))])
+      }
+    }
   }
+
   return(p)
 }
 

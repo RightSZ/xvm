@@ -1,6 +1,6 @@
 Package: xvm
 Title: Read, Parse and Visualize 'XVG'/'XPM' Files from Molecular Dynamics
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "BeiHao",family = "Li",email = "szright2000@gmail.com",role = c("aut","cre"))
 Description: Provides tools for reading, parsing and visualizing simulation data stored in 'xvg'/'xpm' file

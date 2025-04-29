@@ -11,6 +11,9 @@ Find out more at [https://github.com/RightSZ/xvm](https://github.com/RightSZ/xvm
 install the latest version from [GitHub](https://github.com/RightSZ/xvm) as follow:
 
 ```r
+# Install from CRAN
+install.packages("xvm")
+
 # Install the development version from GitHub
 if(!require(devtools)) install.packages("devtools")
 devtools::install_github("RightSZ/xvm")
