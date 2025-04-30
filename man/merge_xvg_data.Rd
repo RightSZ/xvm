@@ -2,22 +2,22 @@
 % Please edit documentation in R/read_functions.R
 \name{merge_xvg_data}
 \alias{merge_xvg_data}
-\title{Merge Multiple XVG Data Objects}
+\title{merge multiple xvg data objects}
 \usage{
 merge_xvg_data(xvg_data)
 }
 \arguments{
-\item{xvg_data}{A list of XVG data objects, each containing 'data' and 'metadata' components}
+\item{xvg_data}{a list of xvg data objects, each containing 'data' and 'metadata' components}
 }
 \value{
-A merged XVG data object with:
+a merged xvg data object with:
 \itemize{
 \item data - Combined data frame with an additional 'group' column identifying the source
 \item metadata - Metadata from the first object in the list
 }
 }
 \description{
-Combines multiple XVG data objects into a single structure, preserving metadata from the first object
+combines multiple xvg data objects into a single structure, preserving metadata from the first object
 and adding a group identifier to track the source of each data point.
 }
 \keyword{internal}

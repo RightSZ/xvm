@@ -162,8 +162,7 @@ parse_xpm <- function(xpm_content) {
   } else {
     df$y_actual <- df$y
   }
-
-  return(list(
+  result <- list(
     data = df,
     title = title,
     legend = legend,
@@ -171,7 +170,9 @@ parse_xpm <- function(xpm_content) {
     y_label = y_label,
     color_map = color_map,
     color_values = color_values
-  ))
+  )
+  class(result) <- "xpm_data"
+  return(result)
 }
 
 #' @title read xpm files
@@ -328,7 +329,7 @@ parse_xvg <- function(lines, skip_comments = TRUE) {
       legends_formatted = legends_formatted
     )
   )
-
+  class(result) <- "xvg_data"
   return(result)
 }
 
@@ -373,13 +374,13 @@ read_xvg <- function(xvg_files, skip_comments = TRUE) {
   return(results)
 }
 
-#' @title Merge Multiple XVG Data Objects
-#' @description Combines multiple XVG data objects into a single structure, preserving metadata from the first object
+#' @title merge multiple xvg data objects
+#' @description combines multiple xvg data objects into a single structure, preserving metadata from the first object
 #' and adding a group identifier to track the source of each data point.
 #'
-#' @param xvg_data A list of XVG data objects, each containing 'data' and 'metadata' components
+#' @param xvg_data a list of xvg data objects, each containing 'data' and 'metadata' components
 #'
-#' @return A merged XVG data object with:
+#' @return a merged xvg data object with:
 #' \itemize{
 #'   \item data - Combined data frame with an additional 'group' column identifying the source
 #'   \item metadata - Metadata from the first object in the list
@@ -423,3 +424,65 @@ merge_xvg_data<-function(xvg_data){
                               legends_formatted = legends_formatted,
                               file_path = NULL)))
 }
+
+#' @title export xvg data
+#' @description write the data component of an \code{xvg_data} object (or multiple objects) to a delimited text file,
+#' controlled via the \code{sep} parameter rather than file extension detection.
+#'
+#' @param xvg_data An object of class \code{xvg_data}, or a list of \code{xvg_data} objects, as returned by \code{read_xvg()}.
+#' @param file     Path to the output file (any extension is acceptable).
+#' @param sep      Field separator (e.g., "\\t" for TSV, "," for CSV). Default is "\\t".
+#' @param row.names Logical, whether to write row names. Default is FALSE.
+#' @param merge    Logical, whether to merge multiple xvg_data objects before exporting. Default is FALSE.
+#' @param ...      Additional arguments passed to \code{write.table()}.
+#' @return         Invisibly returns the path to the written file.
+#' @importFrom utils write.table
+#' @examples
+#' \dontrun{
+#' xvg <- read_xvg(system.file("extdata/rmsd.xvg", package = "xvm"))
+#' # Export as TSV
+#' export_xvg(xvg, "rmsd.tsv", sep = "\t")
+#' # Export as CSV
+#' export_xvg(xvg, "rmsd.csv", sep = ",")
+#' }
+#' @export
+export_xvg <- function(xvg_data, file, sep = "\t", row.names = FALSE, merge = FALSE, ...) {
+  if (inherits(xvg_data, "xvg_data")) {
+    df <- xvg_data$data
+  }
+  else if (is.list(xvg_data)) {
+    if ("data" %in% names(xvg_data) && "metadata" %in% names(xvg_data)) {
+      df <- xvg_data$data
+    } else if (length(xvg_data) > 0) {
+      first_element <- xvg_data[[1]]
+      if (inherits(first_element, "xvg_data")) {
+        if (merge) {
+          merged_data <- merge_xvg_data(xvg_data)
+          df <- merged_data$data
+        } else {
+          warning("Multiple XVG datasets provided, using the first one: ", names(xvg_data)[1])
+          df <- xvg_data[[1]]$data
+        }
+      } else {
+        stop("Invalid input: expected an xvg_data object or a list of xvg_data objects")
+      }
+    } else {
+      stop("Empty list provided")
+    }
+  } else {
+    stop("export_xvg() requires an object of class 'xvg_data' or a list of 'xvg_data' objects")
+  }
+  dir.create(dirname(file), showWarnings = FALSE, recursive = TRUE)
+  utils::write.table(
+    df,
+    file = file,
+    sep = sep,
+    row.names = row.names,
+    quote = FALSE,
+    ...
+  )
+  message("Data exported to ", file)
+  invisible(file)
+}
+
+

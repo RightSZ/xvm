@@ -281,7 +281,7 @@ plot_xpm<-function(xpm_data,interpolate = FALSE){
   }
   if(interpolate){
     p <- ggplot(xpm_data$data, aes(x = x_actual, y = y_actual, fill = value)) +
-      geom_raster(interpolate = T)
+      geom_raster(interpolate = TRUE)
   }else{
     p <- ggplot(xpm_data$data, aes(x = x_actual, y = y_actual, fill = value)) +
       geom_tile()
@@ -297,7 +297,11 @@ plot_xpm<-function(xpm_data,interpolate = FALSE){
       fill = xpm_data$legend
     ) +
     theme_bw() +
-    theme(plot.title = element_text(hjust = 0.5))+
+    theme(
+      plot.title = element_text(hjust = 0.5),
+      panel.grid = element_blank(),
+      panel.background = element_blank()
+    )+
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
     scale_fill_viridis_c()+
@@ -306,11 +310,11 @@ plot_xpm<-function(xpm_data,interpolate = FALSE){
         (max(xpm_data$data$y_actual, na.rm = TRUE) - min(xpm_data$data$y_actual, na.rm = TRUE))
     )
   if (has_x_special) {
-    p <- p + ggplot2::xlab(parse(text = x_label))
+    p <- p + ggplot2::xlab(parse(text = xpm_data$x_label))
   }
 
   if (has_y_special) {
-    p <- p + ggplot2::ylab(parse(text = y_label))
+    p <- p + ggplot2::ylab(parse(text = xpm_data$y_label))
   }
   if (!is.null(xpm_data$legend) && has_legend_special) {
     p <- p + ggplot2::labs(fill = parse(text=xpm_data$legend))
