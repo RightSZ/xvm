@@ -1,0 +1,8 @@
+export_xvg              export xvg data
+plot_xpm                plot xpm data
+plot_xpm_3d             generate 3d scatter plot from xpm Data
+plot_xpm_facet          generate faceted plots from xpm Data
+plot_xvg                plot xvg data
+read_xpm                read xpm files
+read_xvg                read xvg files
+summary_xvg             summarize xvg Data

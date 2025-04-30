@@ -1,4 +1,4 @@
-#' @title summarize xvg Data
+#' @title summarize xvg data
 #' @description compute basic summary statistics (mean, sd, min, median, max)
 #' for each variable in one or more xvg_data objects.
 #'
@@ -83,7 +83,6 @@ summary_xvg <- function(xvg_data, merge_results = FALSE) {
     } else {
       if (is.list(first_element) && !is.null(names(xvg_data)) &&
           any(sapply(first_element, function(x) inherits(x, "xvg_data")))) {
-        # Process each named list item
         result_list <- list()
         for (name in names(xvg_data)) {
           current_item <- xvg_data[[name]]

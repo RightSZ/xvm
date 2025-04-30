@@ -15,10 +15,8 @@
 #'
 #' @keywords internal
 parse_xpm <- function(xpm_content) {
-  # Split content into lines
   lines <- strsplit(xpm_content, "\n")[[1]]
 
-  # Extract metadata
   title_line <- grep("title:", lines, value = TRUE)
   title <- gsub(".*\"(.*)\".*", "\\1", title_line)
 
@@ -31,7 +29,6 @@ parse_xpm <- function(xpm_content) {
   y_label_line <- grep("y-label:", lines, value = TRUE)
   y_label <- gsub(".*\"(.*)\".*", "\\1", y_label_line)
 
-  # Extract matrix dimensions and color count
   dim_line <- grep("^\"[0-9]+ [0-9]+", lines, value = TRUE)
   dim_clean <- gsub("\"(.*)\".*", "\\1", dim_line)
   dims <- as.numeric(strsplit(dim_clean, "[ \t]+")[[1]])
@@ -42,18 +39,16 @@ parse_xpm <- function(xpm_content) {
 
   message("Dimensions parsed: width = ", width, ", height = ", height, ", colors = ", num_colors, "\n")
 
-  # Extract color mappings
   color_map <- list()
   color_values <- list()
 
   color_lines <- grep("^\".*c #[0-9A-Fa-f].*(/\\*.*\\*/)?", lines)
 
-  # Verify color count
   detected_colors <- length(color_lines)
   if (detected_colors != num_colors) {
     warning(sprintf("Color count mismatch: XPM declares %d colors, but %d color definitions found",
                     num_colors, detected_colors))
-    # Use the actual detected color count
+
     num_colors <- min(num_colors, detected_colors)
   }
 
@@ -63,10 +58,9 @@ parse_xpm <- function(xpm_content) {
     color_code <- gsub("^\"([^\"]+)\".*", "\\1", color_line)
     color_code <- gsub("^([^ ]+).*", "\\1", color_code)
 
-    # Extract hex color
     hex_color <- gsub(".*#([0-9A-Fa-f]+).*", "\\1", color_line)
 
-    # Extract value with improved pattern matching
+
     value_pattern <- "/\\* *\"([-0-9.]+)\" *\\*/"
     value_match <- regexec(value_pattern, color_line)
 
@@ -76,14 +70,14 @@ parse_xpm <- function(xpm_content) {
                           value_match[[1]][2] + attr(value_match[[1]], "match.length")[2] - 1)
       value <- as.numeric(value_str)
     } else {
-      # Fallback if pattern doesn't match
+
       value_parts <- strsplit(color_line, "/\\*")[[1]]
       if (length(value_parts) > 1) {
         value_str <- gsub("\"([-0-9.]+)\".*", "\\1", value_parts[2])
         value <- suppressWarnings(as.numeric(value_str))
         if (is.na(value)) {
-          # Final fallback: use index-based value
-          value <- i - 1  # 0-based index common in color maps
+
+          value <- i - 1
         }
       } else {
         value <- i - 1
@@ -146,7 +140,7 @@ parse_xpm <- function(xpm_content) {
     }
   }
 
-  # Create data frame
+
   df <- expand.grid(x = 1:width, y = 1:height)
   df$value <- as.vector(t(data_matrix))
 
@@ -211,7 +205,6 @@ read_xpm <- function(xpm_files) {
     stop("xpm_files must be a character vector containing one or more XPM file paths")
   }
 
-  # Check file existence
   missing_files <- xpm_files[!file.exists(xpm_files)]
   if (length(missing_files) > 0) {
     warning("The following files do not exist: ", paste(missing_files, collapse = ", "))
@@ -222,7 +215,6 @@ read_xpm <- function(xpm_files) {
     stop("No valid XPM files to read")
   }
 
-  # Process files
   results <- list()
   for (file_path in xpm_files) {
     xpm_content <- paste(readLines(file_path), collapse = "\n")
@@ -250,7 +242,7 @@ format_text <- function(text) {
   return(text)
 }
 
-#' @title parse xvg File Content
+#' @title parse xvg file content
 #' @description parses content from a single GROMACS-generated xvg file
 #' @param lines character vector of text lines from xvg file
 #' @param skip_comments logical indicating whether to skip comment lines (default: TRUE)
@@ -425,7 +417,7 @@ merge_xvg_data<-function(xvg_data){
                               file_path = NULL)))
 }
 
-#' @title export xvg data
+#' @title export xvg data object
 #' @description write the data component of an \code{xvg_data} object (or multiple objects) to a delimited text file,
 #' controlled via the \code{sep} parameter rather than file extension detection.
 #'

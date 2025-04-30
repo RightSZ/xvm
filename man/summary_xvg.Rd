@@ -2,7 +2,7 @@
 % Please edit documentation in R/analyse_functions.R
 \name{summary_xvg}
 \alias{summary_xvg}
-\title{summarize xvg Data}
+\title{summarize xvg data}
 \usage{
 summary_xvg(xvg_data, merge_results = FALSE)
 }

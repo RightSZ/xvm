@@ -6,6 +6,8 @@
 <url><loc>https://rightsz.github.io/xvm/articles/xvg_file.html</loc></url>
 <url><loc>https://rightsz.github.io/xvm/authors.html</loc></url>
 <url><loc>https://rightsz.github.io/xvm/index.html</loc></url>
+<url><loc>https://rightsz.github.io/xvm/news/index.html</loc></url>
+<url><loc>https://rightsz.github.io/xvm/reference/export_xvg.html</loc></url>
 <url><loc>https://rightsz.github.io/xvm/reference/format_text.html</loc></url>
 <url><loc>https://rightsz.github.io/xvm/reference/index.html</loc></url>
 <url><loc>https://rightsz.github.io/xvm/reference/merge_xvg_data.html</loc></url>
@@ -17,5 +19,6 @@
 <url><loc>https://rightsz.github.io/xvm/reference/plot_xvg.html</loc></url>
 <url><loc>https://rightsz.github.io/xvm/reference/read_xpm.html</loc></url>
 <url><loc>https://rightsz.github.io/xvm/reference/read_xvg.html</loc></url>
+<url><loc>https://rightsz.github.io/xvm/reference/summary_xvg.html</loc></url>
 </urlset>
 

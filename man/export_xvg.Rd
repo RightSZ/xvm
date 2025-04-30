@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_functions.R
 \name{export_xvg}
 \alias{export_xvg}
-\title{export xvg data}
+\title{export xvg data object}
 \usage{
 export_xvg(xvg_data, file, sep = "\\t", row.names = FALSE, merge = FALSE, ...)
 }

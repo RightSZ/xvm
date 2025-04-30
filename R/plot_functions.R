@@ -322,7 +322,7 @@ plot_xpm<-function(xpm_data,interpolate = FALSE){
   return(p)
 }
 
-#' @title generate faceted plots from xpm Data
+#' @title generate faceted plots from xpm data
 #' @description creates dual-panel visualizations of xpm data with scatter or area plots.
 #' @param xpm_data a xpm object (from [read_xpm()]) or list containing parsed objects.
 #' @param plot_type visualization type: "scatter" (default) or "area".
@@ -440,7 +440,7 @@ plot_xpm_facet<-function(xpm_data,plot_type = "scatter"){
   return(p)
 }
 
-#' @title generate 3d scatter plot from xpm Data
+#' @title generate 3d scatter plot from xpm data
 #' @description creates 3d visualization of xpm data with scatter plot.
 #' @param xpm_data a xpm object (from [read_xpm()]) or list containing parsed objects.
 #' @param reversescale whether to reverse the color scale; default is FALSE

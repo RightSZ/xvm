@@ -1,0 +1,176 @@
+* using log directory ‘/Users/libeihao/Documents/xvm/xvm/xvm.Rcheck’
+* using R version 4.4.2 (2024-10-31)
+* using platform: aarch64-apple-darwin20
+* R was compiled by
+    Apple clang version 14.0.0 (clang-1400.0.29.202)
+    GNU Fortran (GCC) 12.2.0
+* running under: macOS Sequoia 15.3.2
+* using session charset: UTF-8
+* using option ‘--as-cran’
+* checking for file ‘xvm/DESCRIPTION’ ... OK
+* this is package ‘xvm’ version ‘0.0.2’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... [5s/38s] NOTE
+Maintainer: ‘BeiHao Li <szright2000@gmail.com>’
+
+Found the following (possibly) invalid URLs:
+  URL: https://rightsz.github.io/xvm/
+    From: DESCRIPTION
+    Status: Error
+    Message: libcurl error code 35:
+      	Recv failure: Connection reset by peer
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘xvm’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... NOTE
+unable to verify current time
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... NOTE
+Files ‘README.md’ or ‘NEWS.md’ cannot be checked without ‘pandoc’ being installed.
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking examples with --run-donttest ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking PDF version of manual ... OK
+* checking HTML version of manual ... NOTE
+Found the following HTML validation problems:
+export_xvg.html:15:44 (export_xvg.Rd:5): Error: <main> is not recognized!
+export_xvg.html:15:44 (export_xvg.Rd:5): Warning: discarding unexpected <main>
+export_xvg.html:82:1 (export_xvg.Rd:37): Warning: discarding unexpected </main>
+export_xvg.html:4:1 (export_xvg.Rd:5): Warning: <link> inserting "type" attribute
+export_xvg.html:12:1 (export_xvg.Rd:5): Warning: <script> proprietary attribute "onload"
+export_xvg.html:12:1 (export_xvg.Rd:5): Warning: <script> inserting "type" attribute
+export_xvg.html:17:1 (export_xvg.Rd:5): Warning: <table> lacks "summary" attribute
+export_xvg.html:36:1 (export_xvg.Rd:10): Warning: <table> lacks "summary" attribute
+export_xvg.html:57:14 (export_xvg.Rd:20): Warning: <code> attribute "id" has invalid value "..."
+format_text.html:15:44 (format_text.Rd:5): Error: <main> is not recognized!
+format_text.html:15:44 (format_text.Rd:5): Warning: discarding unexpected <main>
+format_text.html:58:1 (format_text.Rd:13): Warning: discarding unexpected </main>
+format_text.html:4:1 (format_text.Rd:5): Warning: <link> inserting "type" attribute
+format_text.html:12:1 (format_text.Rd:5): Warning: <script> proprietary attribute "onload"
+format_text.html:12:1 (format_text.Rd:5): Warning: <script> inserting "type" attribute
+format_text.html:17:1 (format_text.Rd:5): Warning: <table> lacks "summary" attribute
+format_text.html:45:1 (format_text.Rd:10): Warning: <table> lacks "summary" attribute
+merge_xvg_data.html:15:44 (merge_xvg_data.Rd:5): Error: <main> is not recognized!
+merge_xvg_data.html:15:44 (merge_xvg_data.Rd:5): Warning: discarding unexpected <main>
+merge_xvg_data.html:58:1 (merge_xvg_data.Rd:17): Warning: discarding unexpected </main>
+merge_xvg_data.html:4:1 (merge_xvg_data.Rd:5): Warning: <link> inserting "type" attribute
+merge_xvg_data.html:12:1 (merge_xvg_data.Rd:5): Warning: <script> proprietary attribute "onload"
+merge_xvg_data.html:12:1 (merge_xvg_data.Rd:5): Warning: <script> inserting "type" attribute
+merge_xvg_data.html:17:1 (merge_xvg_data.Rd:5): Warning: <table> lacks "summary" attribute
+merge_xvg_data.html:36:1 (merge_xvg_data.Rd:10): Warning: <table> lacks "summary" attribute
+parse_xpm.html:15:44 (parse_xpm.Rd:5): Error: <main> is not recognized!
+parse_xpm.html:15:44 (parse_xpm.Rd:5): Warning: discarding unexpected <main>
+parse_xpm.html:73:1 (parse_xpm.Rd:22): Warning: discarding unexpected </main>
+parse_xpm.html:4:1 (parse_xpm.Rd:5): Warning: <link> inserting "type" attribute
+parse_xpm.html:12:1 (parse_xpm.Rd:5): Warning: <script> proprietary attribute "onload"
+parse_xpm.html:12:1 (parse_xpm.Rd:5): Warning: <script> inserting "type" attribute
+parse_xpm.html:17:1 (parse_xpm.Rd:5): Warning: <table> lacks "summary" attribute
+parse_xpm.html:36:1 (parse_xpm.Rd:10): Warning: <table> lacks "summary" attribute
+parse_xvg.html:15:44 (parse_xvg.Rd:5): Error: <main> is not recognized!
+parse_xvg.html:15:44 (parse_xvg.Rd:5): Warning: discarding unexpected <main>
+parse_xvg.html:61:1 (parse_xvg.Rd:19): Warning: discarding unexpected </main>
+parse_xvg.html:4:1 (parse_xvg.Rd:5): Warning: <link> inserting "type" attribute
+parse_xvg.html:12:1 (parse_xvg.Rd:5): Warning: <script> proprietary attribute "onload"
+parse_xvg.html:12:1 (parse_xvg.Rd:5): Warning: <script> inserting "type" attribute
+parse_xvg.html:17:1 (parse_xvg.Rd:5): Warning: <table> lacks "summary" attribute
+parse_xvg.html:35:1 (parse_xvg.Rd:10): Warning: <table> lacks "summary" attribute
+plot_xpm.html:15:44 (plot_xpm.Rd:5): Error: <main> is not recognized!
+plot_xpm.html:15:44 (plot_xpm.Rd:5): Warning: discarding unexpected <main>
+plot_xpm.html:64:1 (plot_xpm.Rd:27): Warning: discarding unexpected </main>
+plot_xpm.html:4:1 (plot_xpm.Rd:5): Warning: <link> inserting "type" attribute
+plot_xpm.html:12:1 (plot_xpm.Rd:5): Warning: <script> proprietary attribute "onload"
+plot_xpm.html:12:1 (plot_xpm.Rd:5): Warning: <script> inserting "type" attribute
+plot_xpm.html:17:1 (plot_xpm.Rd:5): Warning: <table> lacks "summary" attribute
+plot_xpm.html:35:1 (plot_xpm.Rd:10): Warning: <table> lacks "summary" attribute
+plot_xpm_3d.html:15:44 (plot_xpm_3d.Rd:5): Error: <main> is not recognized!
+plot_xpm_3d.html:15:44 (plot_xpm_3d.Rd:5): Warning: discarding unexpected <main>
+plot_xpm_3d.html:65:1 (plot_xpm_3d.Rd:26): Warning: discarding unexpected </main>
+plot_xpm_3d.html:4:1 (plot_xpm_3d.Rd:5): Warning: <link> inserting "type" attribute
+plot_xpm_3d.html:12:1 (plot_xpm_3d.Rd:5): Warning: <script> proprietary attribute "onload"
+plot_xpm_3d.html:12:1 (plot_xpm_3d.Rd:5): Warning: <script> inserting "type" attribute
+plot_xpm_3d.html:17:1 (plot_xpm_3d.Rd:5): Warning: <table> lacks "summary" attribute
+plot_xpm_3d.html:35:1 (plot_xpm_3d.Rd:10): Warning: <table> lacks "summary" attribute
+plot_xpm_facet.html:15:44 (plot_xpm_facet.Rd:5): Error: <main> is not recognized!
+plot_xpm_facet.html:15:44 (plot_xpm_facet.Rd:5): Warning: discarding unexpected <main>
+plot_xpm_facet.html:75:1 (plot_xpm_facet.Rd:31): Warning: discarding unexpected </main>
+plot_xpm_facet.html:4:1 (plot_xpm_facet.Rd:5): Warning: <link> inserting "type" attribute
+plot_xpm_facet.html:12:1 (plot_xpm_facet.Rd:5): Warning: <script> proprietary attribute "onload"
+plot_xpm_facet.html:12:1 (plot_xpm_facet.Rd:5): Warning: <script> inserting "type" attribute
+plot_xpm_facet.html:17:1 (plot_xpm_facet.Rd:5): Warning: <table> lacks "summary" attribute
+plot_xpm_facet.html:35:1 (plot_xpm_facet.Rd:10): Warning: <table> lacks "summary" attribute
+plot_xvg.html:15:44 (plot_xvg.Rd:5): Error: <main> is not recognized!
+plot_xvg.html:15:44 (plot_xvg.Rd:5): Warning: discarding unexpected <main>
+plot_xvg.html:86:1 (plot_xvg.Rd:41): Warning: discarding unexpected </main>
+plot_xvg.html:4:1 (plot_xvg.Rd:5): Warning: <link> inserting "type" attribute
+plot_xvg.html:12:1 (plot_xvg.Rd:5): Warning: <script> proprietary attribute "onload"
+plot_xvg.html:12:1 (plot_xvg.Rd:5): Warning: <script> inserting "type" attribute
+plot_xvg.html:17:1 (plot_xvg.Rd:5): Warning: <table> lacks "summary" attribute
+plot_xvg.html:42:1 (plot_xvg.Rd:17): Warning: <table> lacks "summary" attribute
+plot_xvg.html:63:14 (plot_xvg.Rd:27): Warning: <code> attribute "id" has invalid value "..."
+read_xpm.html:15:44 (read_xpm.Rd:5): Error: <main> is not recognized!
+read_xpm.html:15:44 (read_xpm.Rd:5): Warning: discarding unexpected <main>
+read_xpm.html:106:1 (read_xpm.Rd:44): Warning: discarding unexpected </main>
+read_xpm.html:4:1 (read_xpm.Rd:5): Warning: <link> inserting "type" attribute
+read_xpm.html:12:1 (read_xpm.Rd:5): Warning: <script> proprietary attribute "onload"
+read_xpm.html:12:1 (read_xpm.Rd:5): Warning: <script> inserting "type" attribute
+read_xpm.html:17:1 (read_xpm.Rd:5): Warning: <table> lacks "summary" attribute
+read_xpm.html:36:1 (read_xpm.Rd:10): Warning: <table> lacks "summary" attribute
+read_xvg.html:15:44 (read_xvg.Rd:5): Error: <main> is not recognized!
+read_xvg.html:15:44 (read_xvg.Rd:5): Warning: discarding unexpected <main>
+read_xvg.html:64:1 (read_xvg.Rd:27): Warning: discarding unexpected </main>
+read_xvg.html:4:1 (read_xvg.Rd:5): Warning: <link> inserting "type" attribute
+read_xvg.html:12:1 (read_xvg.Rd:5): Warning: <script> proprietary attribute "onload"
+read_xvg.html:12:1 (read_xvg.Rd:5): Warning: <script> inserting "type" attribute
+read_xvg.html:17:1 (read_xvg.Rd:5): Warning: <table> lacks "summary" attribute
+read_xvg.html:35:1 (read_xvg.Rd:10): Warning: <table> lacks "summary" attribute
+summary_xvg.html:15:44 (summary_xvg.Rd:5): Error: <main> is not recognized!
+summary_xvg.html:15:44 (summary_xvg.Rd:5): Warning: discarding unexpected <main>
+summary_xvg.html:81:1 (summary_xvg.Rd:35): Warning: discarding unexpected </main>
+summary_xvg.html:4:1 (summary_xvg.Rd:5): Warning: <link> inserting "type" attribute
+summary_xvg.html:12:1 (summary_xvg.Rd:5): Warning: <script> proprietary attribute "onload"
+summary_xvg.html:12:1 (summary_xvg.Rd:5): Warning: <script> inserting "type" attribute
+summary_xvg.html:17:1 (summary_xvg.Rd:5): Warning: <table> lacks "summary" attribute
+summary_xvg.html:36:1 (summary_xvg.Rd:10): Warning: <table> lacks "summary" attribute
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 4 NOTEs
